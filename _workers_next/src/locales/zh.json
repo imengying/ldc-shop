@@ -636,7 +636,7 @@
             "refundRejectedBody": "您的订单 {{orderId}} 的退款申请被拒绝。",
             "refundRejectedBodyWithNote": "您的订单 {{orderId}} 的退款申请被拒绝。备注：{{adminNote}}",
             "adminMessageTitle": "管理员消息",
-            "adminMessageBody": "{{body}}"
+            "adminMessageBody": "管理员消息：{{body}}"
         }
     },
     "language": {
