@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import en from '@/locales/en.json'
 import zh from '@/locales/zh.json'
-import { detectLocaleFromAcceptLanguage, isLocale, type Locale } from './shared'
+import { isLocale, type Locale } from './shared'
 
 type Translations = typeof en
 
@@ -33,15 +33,15 @@ export function I18nProvider({ children, initialLocale = 'en' }: { children: Rea
 
     useEffect(() => {
         const saved = localStorage.getItem('ldc-locale')
-        const detected = detectLocaleFromAcceptLanguage(navigator.language)
-        const resolved = isLocale(saved) ? saved : detected
+        const resolved = isLocale(saved) ? saved : initialLocale
 
         if (resolved !== locale) {
             setLocaleState(resolved)
+            return
         }
         localStorage.setItem('ldc-locale', resolved)
         document.cookie = `ldc-locale=${resolved}; path=/; max-age=31536000`
-    }, [])
+    }, [initialLocale, locale])
 
     const setLocale = (newLocale: Locale) => {
         setLocaleState(newLocale)
