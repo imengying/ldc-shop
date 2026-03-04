@@ -158,6 +158,14 @@ Go to [credit.linux.do](https://credit.linux.do) to create/configure:
 
 Get **Client ID** and **Client Secret**, and fill them into environment variables as `MERCHANT_ID` and `MERCHANT_KEY` (**Secret recommended**).
 
+For GitHub OAuth App, set **Authorization callback URL** to:
+`<your-full-site-url>/api/auth/callback/github`
+
+Example:
+`https://shop.chatgpt.org.uk/api/auth/callback/github`
+
+It must exactly match the protocol and domain of `NEXT_PUBLIC_APP_URL` (no extra trailing slash).
+
 ### 3. Other Variables
 *   **ADMIN_USERS**: Admin usernames, comma separated (supports Linux DO usernames and GitHub usernames in `gh_<login>` format, e.g., `chatgpt,gh_octocat`) (**Secret recommended**).
 *   **NEXT_PUBLIC_APP_URL**: Your full app URL (e.g., `https://store.chatgpt.org.uk`). **Must be Text, not Secret**.

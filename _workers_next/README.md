@@ -156,6 +156,10 @@
 | EPay / Linux DO Credit | 通知 URL (Notify URL) | `https://ldc-shop.xxx.workers.dev/api/notify` |
 | EPay / Linux DO Credit | 回调 URL (Return URL) | `https://ldc-shop.xxx.workers.dev/callback` |
 
+> GitHub 的 **Authorization callback URL** 固定填写为：`<你的站点完整 URL>/api/auth/callback/github`  
+> 例如站点是 `https://shop.chatgpt.org.uk`，则填写 `https://shop.chatgpt.org.uk/api/auth/callback/github`。  
+> 注意必须与 `NEXT_PUBLIC_APP_URL` 的协议和域名完全一致，且不要额外加尾部斜杠。
+
 #### 5. 首次访问
 
 访问你的 Workers 域名，首页会自动创建所有数据库表。

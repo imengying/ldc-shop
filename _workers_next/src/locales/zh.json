@@ -2,7 +2,7 @@
     "common": {
         "appName": "LDC 商店",
         "shopNamePattern": "{{name}}的 {{appName}}",
-        "login": "使用 Linux DO 登录",
+        "login": "登录",
         "categories": "商品分类",
         "all": "全部",
         "searchPlaceholder": "搜索商品...",

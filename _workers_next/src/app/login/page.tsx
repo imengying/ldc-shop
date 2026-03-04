@@ -4,11 +4,9 @@ import { signIn } from "next-auth/react"
 import { useSearchParams } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { useI18n } from "@/lib/i18n/context"
 import { Github, LogIn } from "lucide-react"
 
 export default function LoginPage() {
-  const { t } = useI18n()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get("callbackUrl") || "/"
 
@@ -16,7 +14,7 @@ export default function LoginPage() {
     <main className="container py-16 max-w-md">
       <Card className="tech-card overflow-hidden">
         <CardHeader className="space-y-2">
-          <CardTitle className="text-2xl">{t("common.login")}</CardTitle>
+          <CardTitle className="text-2xl">登录</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <Button

@@ -11,7 +11,7 @@ export function SignInButton() {
     return (
         <Button
             size="sm"
-            className="bg-foreground text-background hover:bg-foreground/90"
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
             onClick={() => router.push("/login")}
         >
             {t('common.login')}
