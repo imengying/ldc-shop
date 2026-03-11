@@ -54,7 +54,7 @@ export default async function SearchPage(props: {
           let hasInfinite = false
           for (const vid of p.allVariantIds) {
             const vStat = liveStats.get(vid) || { unused: 0, available: 0, locked: 0 }
-            if (vStat.available >= INFINITE_STOCK || vStat.unused > 0) hasInfinite = true
+            if (vStat.available >= INFINITE_STOCK || (p.groupShared && vStat.unused > 0)) hasInfinite = true
             groupAvailable += vStat.available
             groupLocked += vStat.locked
           }

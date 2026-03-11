@@ -9,7 +9,7 @@ import { cache } from "react";
 let dbInitialized = false;
 let loginUsersSchemaReady = false;
 let wishlistTablesReady = false;
-const CURRENT_SCHEMA_VERSION = 18;
+const CURRENT_SCHEMA_VERSION = 19;
 type ColumnEnsureKey = 'products' | 'orders' | 'cards' | 'loginUsers';
 const columnEnsureState: Record<ColumnEnsureKey, { ready: boolean; pending: Promise<void> | null }> = {
     products: { ready: false, pending: null },
@@ -882,7 +882,8 @@ function groupProductsAsVariants<T extends {
     rating?: number;
     reviewCount?: number;
     isHot?: boolean | null;
-}>(rows: T[]): (T & { variantCount?: number; priceMin?: number; priceMax?: number; totalSold?: number; totalStock?: number; totalLocked?: number; totalReviewCount?: number; avgRating?: number; groupHot?: boolean; allVariantIds?: string[] })[] {
+    isShared?: boolean | null;
+}>(rows: T[]): (T & { variantCount?: number; priceMin?: number; priceMax?: number; totalSold?: number; totalStock?: number; totalLocked?: number; totalReviewCount?: number; avgRating?: number; groupHot?: boolean; groupShared?: boolean; allVariantIds?: string[] })[] {
     const byGroup = new Map<string, T[]>();
     for (const row of rows) {
         const rawKey = (row.variantGroupId && row.variantGroupId.trim()) || null;
@@ -891,7 +892,7 @@ function groupProductsAsVariants<T extends {
         list.push(row);
         byGroup.set(key, list);
     }
-    const result: (T & { variantCount?: number; priceMin?: number; priceMax?: number; totalSold?: number; totalStock?: number; totalLocked?: number; totalReviewCount?: number; avgRating?: number; groupHot?: boolean; allVariantIds?: string[] })[] = [];
+    const result: (T & { variantCount?: number; priceMin?: number; priceMax?: number; totalSold?: number; totalStock?: number; totalLocked?: number; totalReviewCount?: number; avgRating?: number; groupHot?: boolean; groupShared?: boolean; allVariantIds?: string[] })[] = [];
     for (const list of byGroup.values()) {
         const rep = list.slice().sort((a, b) => {
             const soA = a.sortOrder ?? 0;
@@ -914,8 +915,9 @@ function groupProductsAsVariants<T extends {
             const ratingSum = list.reduce((s, p) => s + (p.rating || 0) * (p.reviewCount || 0), 0);
             const avgRating = totalReviewCount > 0 ? ratingSum / totalReviewCount : 0;
             const groupHot = list.some((p) => !!p.isHot);
+            const groupShared = list.some((p) => !!p.isShared);
             const allVariantIds = list.map((p) => p.id);
-            result.push({ ...rep, variantCount, priceMin, priceMax, totalSold, totalStock, totalLocked, totalReviewCount, avgRating, groupHot, allVariantIds });
+            result.push({ ...rep, variantCount, priceMin, priceMax, totalSold, totalStock, totalLocked, totalReviewCount, avgRating, groupHot, groupShared, allVariantIds });
         } else {
             result.push({ ...rep });
         }
